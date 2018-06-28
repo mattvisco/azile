@@ -1,0 +1,93 @@
+// max will be set to whichever emotion is detected as dominant
+var max;
+
+  
+/*********** setup of emotion detection *************/
+
+var ctrack = new clm.tracker({useWebGL : true});
+ctrack.init(pModel);
+
+function startTracking() {
+  // start tracking
+  ctrack.start(video);
+}
+  
+// Where the magic happens
+function trackingLoop() {
+  overlayCC.clearRect(0, 0, 640, 480);
+  if (ctrack.getCurrentPosition()) {
+    ctrack.draw(overlay);
+  }
+  var cp = ctrack.getCurrentParameters();
+  
+  var er = ec.meanPredict(cp);
+  // console.log(er);
+  // console.log(er.length);
+
+  // maxArr is used to rank the detectable emotions against each other
+  var maxArr = [];
+  if (er) {
+    for (var i = 0;i < er.length;i++) {
+      // Push the numerical value of each detected emotion to maxArr
+      maxArr.push(er[i].value);
+    }
+    // Set max to the index of the emotion with the maximum value within the array
+    // 0 = anger
+    // 1 = disgust
+    // 2 = fear
+    // 3 = sad
+    // 4 = surprise
+    // 5 = happy
+    max = maxArr.indexOf(Math.max.apply(Math, maxArr));
+    // Log max for testing which emotion is dominant
+    console.log(max);
+  }
+
+  var positions = ctrack.getCurrentPosition();
+  if (positions) {
+    foundFace = true;
+    faceDistance = getDistance(positions[0][0],positions[0][1],positions[14][0],positions[14][1]);
+    console.log(faceDistance);
+  }
+
+}
+
+var ec = new emotionClassifier();
+ec.init(emotionModel);
+var emotionData = ec.getBlank();  
+ 
+
+// Emotion based photo trigger runs every 1s
+setInterval(function () {
+    // takeSnapshot();
+  }, 1000); 
+
+
+function takeSnapshot() {
+  var emotion = [
+    anger,
+    disgust,
+    fear,
+    sad,
+    surprise,
+    happy
+  ];
+
+  // Get IMG by ID based on which emotion is in the max var
+  var j = emotion[max];
+  console.log(j);
+
+  var context;
+  var width = video.offsetWidth
+    , height = video.offsetHeight;
+
+  canvas = canvas || document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+
+  context = canvas.getContext('2d');
+  context.drawImage(video, 0, 0, width, height);
+
+  j.src = canvas.toDataURL('image/png');
+  // document.body.appendChild(img);
+}
