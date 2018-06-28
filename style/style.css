@@ -9,8 +9,8 @@ body {
 	font-family: Courier New;
 	font-style: bold;
 	font-size: 40px;
-	width: 100vw;
-	padding: 0 30px;
+	width: 90%;
+	margin: 0 5%;
 	position: absolute;
 	top: 50%;
 }
