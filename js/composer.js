@@ -7,7 +7,14 @@ function setup () {
 function draw () {
 	requestAnimFrame(draw);
 	trackingLoop();
-	animateStatic();
+	if(experienceBegin) {
+		if(!introComplete) {
+			intro();
+			introComplete = true;
+		}
+	} else {
+		animateStatic();
+	}
 }
 
 $(function() {

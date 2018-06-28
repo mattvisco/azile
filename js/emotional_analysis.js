@@ -40,14 +40,13 @@ function trackingLoop() {
     // 5 = happy
     max = maxArr.indexOf(Math.max.apply(Math, maxArr));
     // Log max for testing which emotion is dominant
-    console.log(max);
+    // console.log(max);
   }
 
   var positions = ctrack.getCurrentPosition();
   if (positions) {
     foundFace = true;
     faceDistance = getDistance(positions[0][0],positions[0][1],positions[14][0],positions[14][1]);
-    console.log(faceDistance);
   }
 
 }

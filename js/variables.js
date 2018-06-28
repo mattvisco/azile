@@ -4,6 +4,11 @@ var overlayCC;
 
 var foundFace = false;
 var faceDistance = 0;
+var faceLow = 1.2;
+var faceHigh = 1.7;
+
+var experienceBegin = false;
+var introComplete = false;
 
 function initVariables() {
   // Face contour overlay
@@ -53,6 +58,5 @@ function deg2rad(deg) {
 
 function map_range(value, low1, high1, low2, high2) {
 	value = Math.max(low1, Math.min(high1,value));
-	console.log(value);
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }

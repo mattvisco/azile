@@ -4,25 +4,13 @@ body {
 	overflow: hidden;
 }
 
-#info {
-	color: #fff;
+.terminal-text {
+	color: green;
+	font-family: Courier New;
+	font-style: bold;
+	font-size: 40px;
+	width: 100vw;
+	padding: 0 30px;
 	position: absolute;
-	bottom: 20px;
-	padding: 5px 20px;
-	font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	font-weight: 100;
-	font-size: 18px;
-	background-color: #000;
+	top: 50%;
 }
-
-#overlay {
-				position: absolute;
-				top: 0px;
-				left: 0px;
-				-o-transform : scaleX(-1);
-				-webkit-transform : scaleX(-1);
-				transform : scaleX(-1);
-				-ms-filter : fliph; /*IE*/
-				filter : fliph; /*IE*/
-
-			}

@@ -11,7 +11,7 @@ var pnoise, globalParams;
 
 function initStatic() {
 
-	camera = new THREE.PerspectiveCamera(55, 1080/ 720, 20, 3000);
+	camera = new THREE.PerspectiveCamera(55, 800/ 600, 20, 3000);
 	camera.position.z = 1000;
 	scene = new THREE.Scene();
 
@@ -25,7 +25,7 @@ function initStatic() {
 	} );
 
 	//Add video plane
-	var planeGeometry = new THREE.PlaneGeometry( 1080, 720,1,1 );
+	var planeGeometry = new THREE.PlaneGeometry( 800, 600,1,1 );
 	var plane = new THREE.Mesh( planeGeometry, videoMaterial );
 	scene.add( plane );
 	plane.z = 0;
@@ -73,8 +73,6 @@ function initParams() {
 }
 
 function updateParams() {
-	var faceLow = 1.2;
-	var faceHigh = 1.7;
 	badTVPass.uniforms[ 'distortion' ].value = map_range(faceDistance,faceLow,faceHigh,20.0, 1.0);
 	badTVPass.uniforms[ 'distortion2' ].value = map_range(faceDistance,faceLow,faceHigh,20.0, 1.2);
 	badTVPass.uniforms[ 'speed' ].value = map_range(faceDistance,faceLow,faceHigh,20.0, 0.0);
@@ -105,6 +103,10 @@ function onToggleShaders(){
 
 function animateStatic() {
 
+	if (foundFace) {
+		updateParams();
+	}
+	
 	shaderTime += 0.1;
 	badTVPass.uniforms[ 'time' ].value =  shaderTime;
 	filmPass.uniforms[ 'time' ].value =  shaderTime;
@@ -114,11 +116,13 @@ function animateStatic() {
 		if ( videoTexture ) videoTexture.needsUpdate = true;
 	}
 
-	if (foundFace) {
-		updateParams();
-	}
+	
 
 	composer.render( 0.1);
+
+	if (faceDistance >= faceHigh) {
+		experienceBegin = true;
+	}
 }
 
 function onResize() {
