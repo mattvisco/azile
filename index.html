@@ -9,8 +9,9 @@
 <body>
 
 	<!-- Hidden CLM Tracker Container -->
-    <div id="overlay-wrapper" style="position: absolute;top: -500px;">
-      <canvas id="overlay" width="640" height="480" style="display: none;"></canvas>
+    <div id="overlay-wrapper">
+    	<!--canvas needs w/h defined in the HTML element to match createVideo() resolution or overlay.draw() won't match up -->
+      <canvas id="overlay" width="320" height="240"></canvas>
     </div>
 
     <div class="terminal-text" id="intro"></div>

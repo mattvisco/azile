@@ -14,9 +14,9 @@ function startTracking() {
   
 // Where the magic happens
 function trackingLoop() {
-  overlayCC.clearRect(0, 0, 640, 480);
+  overlayCC.clearRect(0, 0, overlay.width, overlay.height);
   if (ctrack.getCurrentPosition()) {
-    ctrack.draw(overlay);
+    ctrack.draw(overlay, undefined, 'vertices'); // vertices mesh vs. contour
   }
   var cp = ctrack.getCurrentParameters();
   
@@ -57,9 +57,9 @@ var emotionData = ec.getBlank();
  
 
 // Emotion based photo trigger runs every 1s
-setInterval(function () {
-    // takeSnapshot();
-  }, 1000); 
+// setInterval(function () {
+//     takeSnapshot();
+//   }, 1000); 
 
 
 function takeSnapshot() {

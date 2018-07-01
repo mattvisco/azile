@@ -14,3 +14,22 @@ body {
 	position: absolute;
 	top: 50%;
 }
+
+/*** Mirror video ***/
+
+#overlay {
+	transform: scaleX(-1);
+	/* scaling w/h here since altering the source video screws up the faceDistance...pixelation may look ok on analog */
+	width: 800px;
+	height: 600px;
+/*	opacity: 0; for some reason pre-setting this kills the overlay draw, so trigger a fadeOut in the JS */	
+	position: absolute;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+
+}
+ #overlay-wrapper {
+ 	position: fixed;
+ 	width: 100vw;
+ 	height: 100vh;
+}
