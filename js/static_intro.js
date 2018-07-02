@@ -23,13 +23,16 @@ function initStatic() {
 	videoMaterial = new THREE.MeshBasicMaterial( {
 		map: videoTexture
 	} );
+	videoMaterial.side = THREE.DoubleSide; // make material double sided
+
 
 	//Add video plane
 	var planeGeometry = new THREE.PlaneGeometry( 800, 600,1,1 );
 	var plane = new THREE.Mesh( planeGeometry, videoMaterial );
 	scene.add( plane );
 	plane.z = 0;
-	plane.scale.x = plane.scale.y = 1.45;
+	plane.scale.x = -1.45; // flip material for proper mirror effect
+	plane.scale.y = 1.45;
 
 	//init renderer
 	renderer = new THREE.WebGLRenderer();
@@ -116,12 +119,17 @@ function animateStatic() {
 		if ( videoTexture ) videoTexture.needsUpdate = true;
 	}
 
-	
-
 	composer.render( 0.1);
 
 	if (faceDistance >= faceHigh) {
-		experienceBegin = true;
+		$( '#overlay' ).fadeIn(1000); // show overlay tp indicate to user face is being recognized
+		setTimeout(function () { // add a 2s delay and recheck to prevent false positives
+		  	if (faceDistance >= faceHigh) {
+	  			experienceBegin = true;
+			} else {
+				$( '#overlay' ).fadeOut(250); // hide overlay
+			}
+	  	}, 2000); 
 	}
 }
 

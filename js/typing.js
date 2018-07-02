@@ -7,7 +7,7 @@ function typeSentence(sentence,div,index, callback) {
 	if (index < sentence.length) {
 		setTimeout(function(){
 		    typeSentence(sentence, div, index, callback);
-		}, 200);
+		}, 33);
 	} else if (callback) {
 		div.append('</p>');
 		setTimeout(function(){
