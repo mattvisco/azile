@@ -9,6 +9,9 @@ var filmParams, filmPass;
 var renderPass, copyPass;
 var pnoise, globalParams;
 
+var totalFaceCount = 0;
+var faceRecognized = 0;
+
 function initStatic() {
 
 	camera = new THREE.PerspectiveCamera(55, 800/ 600, 20, 3000);
@@ -106,7 +109,7 @@ function onToggleShaders(){
 
 function animateStatic() {
 
-	if (foundFace) {
+	if (!faceDetectionIsCurrent && foundFace) {
 		updateParams();
 	}
 	
@@ -121,16 +124,46 @@ function animateStatic() {
 
 	composer.render( 0.1);
 
-	if (faceDistance >= faceHigh) {
+	if (faceDetectionIsCurrent) {
+		faceDetectionProcessing();
+	} else if (faceDistance >= faceHigh) {
+		faceDetectionIsCurrent = true;
 		$( '#overlay' ).fadeIn(1000); // show overlay tp indicate to user face is being recognized
-		setTimeout(function () { // add a 2s delay and recheck to prevent false positives
-		  	if (faceDistance >= faceHigh) {
-	  			experienceBegin = true;
-			} else {
-				$( '#overlay' ).fadeOut(250); // hide overlay
-			}
-	  	}, 2000); 
+		faceTimestamp = new Date();
 	}
+
+
+	
+}
+
+function faceDetectionProcessing() {
+	var currentTime = new Date();
+	if (currentTime - faceTimestamp >= 4000) {
+		if (faceRecognized >= totalFaceCount * 2/3) {
+			experienceBegin = true;
+			// For some reason this is adding in a momentary glitch of the overlay popping out
+			// It has something to do with the overlay fading out multiple times I beleive
+			$( "canvas" ).each(function(){
+				if(this.id != 'overlay') {
+					$(this).hide();
+				}
+			})
+			// $( '#overlay' ).fadeOut(1000);
+		} else {
+			$( '#overlay' ).hide();
+			faceDetectionIsCurrent = false;
+			console.log('mm')
+		}
+		resetFaceRecog();
+	} else if (faceDistance - faceHigh >= -0.1) {
+		faceRecognized++;
+	}
+	totalFaceCount++;
+}
+
+function resetFaceRecog() {
+	totalFaceCount = 0;
+	faceRecognized = 0;
 }
 
 function onResize() {

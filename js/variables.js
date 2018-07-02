@@ -6,15 +6,41 @@ var foundFace = false;
 var faceDistance = 0;
 var faceLow = 1.2;
 var faceHigh = 1.7;
+var faceDetectionIsCurrent = false;
+var faceTimestamp;
 
 var experienceBegin = false;
 var introComplete = false;
+
+var listeningForAnswer = false;
 
 function initVariables() {
   // Face contour overlay
 	overlay = document.getElementById('overlay');
 	overlayCC = overlay.getContext('2d');
+	$( '#overlay' ).hide(); // enables fadeIn/Out vs. setting opacity in CSS
 	createVideo();
+}
+
+function activateStaticCanvas() {
+	$( "canvas" ).each(function(){
+		if(!this.id) {
+			$(this).fadeIn(3000);
+		}
+	})
+}
+
+// Reset all flags here
+function resetAlize() {
+	experienceBegin = false;
+	introComplete = false;
+	foundFace = false;
+	faceDistance = 0;
+	faceDetectionIsCurrent = false;
+	listeningForAnswer = false;
+	$('#text-container').empty();
+	$( '#overlay' ).hide();
+	activateStaticCanvas();
 }
 
 function createVideo() {
