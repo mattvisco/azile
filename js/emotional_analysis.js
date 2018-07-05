@@ -1,7 +1,7 @@
 // max will be set to whichever emotion is detected as dominant
 var max;
 
-  
+
 /*********** setup of emotion detection *************/
 
 var ctrack = new clm.tracker({useWebGL : true});
@@ -11,7 +11,7 @@ function startTracking() {
   // start tracking
   ctrack.start(video);
 }
-  
+
 // Where the magic happens
 function trackingLoop() {
   overlayCC.clearRect(0, 0, overlay.width, overlay.height);
@@ -19,7 +19,7 @@ function trackingLoop() {
     ctrack.draw(overlay, undefined, 'vertices'); // vertices mesh vs. contour
   }
   var cp = ctrack.getCurrentParameters();
-  
+
   var er = ec.meanPredict(cp);
   // console.log(er);
   // console.log(er.length);
@@ -27,6 +27,15 @@ function trackingLoop() {
   // maxArr is used to rank the detectable emotions against each other
   var maxArr = [];
   if (er) {
+
+    if (currentQuestion == 2) { // If q1 we are waiting for a smiling to complete the question loop
+      smileValue = Math.max(smileValue, er[5].value);
+      if (er[5].value > 0.8) {
+        questionAnswered = true;
+        clearTimeout(smileTimeout);
+      }
+    }
+
     for (var i = 0;i < er.length;i++) {
       // Push the numerical value of each detected emotion to maxArr
       maxArr.push(er[i].value);
@@ -39,6 +48,7 @@ function trackingLoop() {
     // 4 = surprise
     // 5 = happy
     max = maxArr.indexOf(Math.max.apply(Math, maxArr));
+
     // Log max for testing which emotion is dominant
     // console.log(max);
   }
@@ -53,13 +63,13 @@ function trackingLoop() {
 
 var ec = new emotionClassifier();
 ec.init(emotionModel);
-var emotionData = ec.getBlank();  
- 
+var emotionData = ec.getBlank();
+
 
 // Emotion based photo trigger runs every 1s
 // setInterval(function () {
 //     takeSnapshot();
-//   }, 1000); 
+//   }, 1000);
 
 
 function takeSnapshot() {
@@ -83,6 +93,7 @@ function takeSnapshot() {
   canvas = canvas || document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
+  // TODO: If we use this fn we should give the canvas ids or class so we don't knock um out when we fadeOut static canvas
 
   context = canvas.getContext('2d');
   context.drawImage(video, 0, 0, width, height);

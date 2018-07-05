@@ -4,6 +4,14 @@ body {
 	overflow: hidden;
 }
 
+.terminal {
+	overflow: hidden;
+	position: absolute;
+	top: 60%;
+	height: 40%;
+	width: 100%;
+}
+
 .terminal-text {
 	color: green;
 	font-family: Courier New;
@@ -11,8 +19,7 @@ body {
 	font-size: 40px;
 	width: 90%;
 	margin: 0 5%;
-	position: absolute;
-	top: 50%;
+	position: relative;
 }
 
 /*** Mirror video ***/
@@ -22,7 +29,7 @@ body {
 	/* scaling w/h here since altering the source video screws up the faceDistance...pixelation may look ok on analog */
 	width: 800px;
 	height: 600px;
-/*	opacity: 0; for some reason pre-setting this kills the overlay draw, so trigger a fadeOut in the JS */	
+/*	opacity: 0; for some reason pre-setting this kills the overlay draw, so trigger a fadeOut in the JS */
 	position: absolute;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;

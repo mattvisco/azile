@@ -1,39 +1,122 @@
-var intro_sentence = ">  Hello user, my name is Ernest Alize. I am learning how to read emotions, can you help me?";
+var introSentence = ">  Hello user, my name is Ernest Alize. I am learning how to read emotions, can you help me?";
+var smileSentence = "> Thank you for helping. Please can you smile for me."
 var yOrN = "> [Type y/n to continue]";
 var blockInterval;
+var ellipseIntervals = [];
 var exitExperienceTimeout;
 
-function typeSentence(sentence,div,index, callback) {
-	div.append(sentence.charAt(index));
+var textContainer = $('#text-container');
+var textWrapper = $('#text-wrapper');
+
+function scroll() {
+	if (textContainer.height() + textContainer.position().top >= textWrapper.height() - 100) {
+		textContainer.css({
+	    top: "-=100",
+	  });
+	}
+}
+
+function typeSentence(sentence, index, callback) {
+	scroll();
+	textContainer.append(sentence.charAt(index));
 	index += 1;
 	if (index < sentence.length) {
 		setTimeout(function(){
-		    typeSentence(sentence, div, index, callback);
+		    typeSentence(sentence, index, callback);
 		}, 33);
 	} else if (callback) {
-		div.append('</p>');
+		textContainer.append('</p>');
 		setTimeout(function(){
 			callback();
 		}, 400);
 	} else {
-		div.append('</p>');
+		textContainer.append('</p>');
 	}
 }
 
-function displaySentence(sentence,div) {
-	div.append('<p>');
-	div.append(sentence);
-	div.append('<span class="block">&block;</span>');
+function displaySentence(sentence) {
+	scroll();
+	textContainer.append('<p>');
+	textContainer.append(sentence);
+}
+
+function animateBlock() {
+	textContainer.append('<span class="block">&block;</span>');
 	blockInterval = setInterval(function(){
 		$('.block').toggle();
 	},1000);
 }
 
+// Not working, needs more thought
+function animateEllipse() {
+	textContainer.append('<span class="ellipse" id="e1">.</span>');
+	textContainer.append('<span class="ellipse" id="e2">.</span>');
+	textContainer.append('<span class="ellipse" id="e3">.</span>');
+	ellipseIntervals.push(setInterval(function(){
+		$('#e1').toggle();
+	},3000));
+	ellipseIntervals.push(setInterval(function(){
+		$('#e2').toggle();
+	},1500));
+	ellipseIntervals.push(setInterval(function(){
+		$('#e3').toggle();
+	},750));
+}
 
 
 function intro() {
-	$('#text-container').append('<p>');
-	typeSentence(intro_sentence, $('#text-container'), 0, userType);
+	textContainer.append('<p>');
+	typeSentence(introSentence, 0, userType);
+}
+
+function smileForMe() {
+	textContainer.append('<p>');
+	typeSentence(smileSentence, 0);
+	smileTimeout = setTimeout(function() {
+		questionAnswered = true;
+	}, 5000); // If it takes more than 5s to smile than trigger end of question
+
+	// TODO: some progress element
+	// displaySentence("> Calculating", false);
+	// animateEllipse();
+	// textContainer.append('</p>');
+}
+
+function smileScore() {
+	smileValue = Math.round(smileValue * 100);
+	var calculatedHappiness = "> Based on my calculation you are " + smileValue + "% happy.";
+	typeSentence(calculatedHappiness, 0, happyRating);
+}
+
+function happyRating() {
+	var happyRating;
+	if (smileValue > 80) {
+		happyRating = "> I've determined you are happy. Is this correct?";
+	} else {
+		happyRating = "> I've determined you are unhappy. Is this correct?";
+	}
+	typeSentence(happyRating, 0, userType);
+}
+
+function userType() {
+	displaySentence(yOrN);
+	animateBlock();
+	listeningForAnswer = true;
+	$('body').keypress(function(event){
+		if (listeningForAnswer) {
+			if(event.key == 'y') {
+				textContainer.append('y</p>');
+				moveToNextStep();
+			} else if (event.key == 'n') {
+				textContainer.append('n</p>');
+				moveToNextStep();
+				if (currentQuestion == 1) {
+					resetAlize(); // TODO: this reset is glitchy, will prolly need some window of time until face search restarts
+				}
+			}
+		}
+	})
+	exitExperienceTimeout = setTimeout(resetAlize, 10000);
 }
 
 function moveToNextStep() {
@@ -41,23 +124,5 @@ function moveToNextStep() {
 	$('.block').remove();
 	clearTimeout(exitExperienceTimeout);
 	listeningForAnswer = false;
-}
-
-function userType() {
-	displaySentence(yOrN, $('#text-container'));
-	listeningForAnswer = true;
-	// TODO: add something to clear this listener
-	$('body').keypress(function(event){
-		if (listeningForAnswer) {
-			if(event.key == 'y') {
-				$('#text-container').append('y</p>');
-				moveToNextStep();
-			} else if (event.key == 'n') {
-				$('#text-container').append('n</p>');
-				moveToNextStep();
-				resetAlize(); // TODO: this reset is glitchy, will prolly need some window of time until face search restarts
-			}
-		}
-	})
-	exitExperienceTimeout = setTimeout(resetAlize, 10000);
+	questionAnswered = true;
 }

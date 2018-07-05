@@ -10,9 +10,14 @@ var faceDetectionIsCurrent = false;
 var faceTimestamp;
 
 var experienceBegin = false;
-var introComplete = false;
+
+var smileValue = 0.0;
+var smileTimeout;
 
 var listeningForAnswer = false;
+
+var currentQuestion = 0;
+var questionAnswered = true;
 
 function initVariables() {
   // Face contour overlay
@@ -32,15 +37,30 @@ function activateStaticCanvas() {
 
 // Reset all flags here
 function resetAlize() {
-	experienceBegin = false;
-	introComplete = false;
 	foundFace = false;
 	faceDistance = 0;
 	faceDetectionIsCurrent = false;
+	experienceBegin = false;
+	currentQuestion = 0;
+	questionAnswered = true;
 	listeningForAnswer = false;
+	smileValue = 0.0;
 	$('#text-container').empty();
+	$('#text-container').css({
+		top: 0
+	});
 	$( '#overlay' ).hide();
 	activateStaticCanvas();
+}
+
+// This doesn't work on new apple computer w/ touchbar...
+// Test to see if it works on old keyboard, might need to change equality
+function initializeEscToReset() {
+	$('body').keypress(function(event){
+		if (event.key == 27) {
+					resetAlize();
+		}
+	});
 }
 
 function createVideo() {
@@ -68,13 +88,13 @@ function createVideo() {
 
 function getDistance(lat1,lon1,lat2,lon2) {
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
+  var dLon = deg2rad(lon2-lon1);
+  var a =
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
     Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   return c;
 }
 
