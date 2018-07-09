@@ -23,10 +23,10 @@ function draw () {
 			if(currentQuestion == 0) {
 				askQuestion(intro, true, 2000);
 			} else if (currentQuestion == 1) {
-				askQuestion(smileForMe, false);
+				// askQuestion(smileForMe, false);
+				askQuestion(thinkOfFriend, false);
 			} else if (currentQuestion == 2) {
-				// set some timeout for no smile
-				askQuestion(smileScore, false);
+				askQuestion(emotionScore, false);
 			}
 		}
 	} else {

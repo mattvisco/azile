@@ -12,6 +12,10 @@ var faceTimestamp;
 var experienceBegin = false;
 
 var smileValue = 0.0;
+var maxEmotion = {
+	emotion: 'happy',
+	value: 0
+}
 var smileTimeout;
 
 var listeningForAnswer = false;

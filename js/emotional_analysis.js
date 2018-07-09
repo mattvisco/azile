@@ -28,14 +28,6 @@ function trackingLoop() {
   var maxArr = [];
   if (er) {
 
-    if (currentQuestion == 2) { // If q1 we are waiting for a smiling to complete the question loop
-      smileValue = Math.max(smileValue, er[5].value);
-      if (er[5].value > 0.8) {
-        questionAnswered = true;
-        clearTimeout(smileTimeout);
-      }
-    }
-
     for (var i = 0;i < er.length;i++) {
       // Push the numerical value of each detected emotion to maxArr
       maxArr.push(er[i].value);
@@ -48,6 +40,24 @@ function trackingLoop() {
     // 4 = surprise
     // 5 = happy
     max = maxArr.indexOf(Math.max.apply(Math, maxArr));
+
+    // This was the "smile for me" flow
+    // if (currentQuestion == 2) { // If q2 we are waiting for a smiling to complete the question loop
+    //   smileValue = Math.max(smileValue, er[5].value);
+    //   if (er[5].value > 0.8) {
+    //     questionAnswered = true;
+    //     clearTimeout(smileTimeout);
+    //   }
+    // }
+
+    // Alternative start flow
+    if (currentQuestion == 2 && !questionAnswered) { // If q2 we are looking for strongest emotion
+      if (er[max].value > maxEmotion.value) {
+        maxEmotion = er[max];
+      }
+    }
+
+
 
     // Log max for testing which emotion is dominant
     // console.log(max);

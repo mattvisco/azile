@@ -1,5 +1,6 @@
 var introSentence = ">  Hello user, my name is Ernest Alize. I am learning how to read emotions, can you help me?";
 var smileSentence = "> Thank you for helping. Please can you smile for me."
+var friendSentence = "> Thank you for helping. Can you think of a time with a friend that was particularly memorable."
 var yOrN = "> [Type y/n to continue]";
 var blockInterval;
 var ellipseIntervals = [];
@@ -11,7 +12,7 @@ var textWrapper = $('#text-wrapper');
 function scroll() {
 	if (textContainer.height() + textContainer.position().top >= textWrapper.height() - 100) {
 		textContainer.css({
-	    top: "-=100",
+	    top: "-=50",
 	  });
 	}
 }
@@ -82,6 +83,14 @@ function smileForMe() {
 	// textContainer.append('</p>');
 }
 
+function thinkOfFriend() {
+	textContainer.append('<p>');
+	typeSentence(friendSentence, 0);
+	smileTimeout = setTimeout(function() {
+		questionAnswered = true;
+	}, 10000); // Wait 10s to determine emotion
+}
+
 function smileScore() {
 	smileValue = Math.round(smileValue * 100);
 	var calculatedHappiness = "> Based on my calculation you are " + smileValue + "% happy.";
@@ -96,6 +105,25 @@ function happyRating() {
 		happyRating = "> I've determined you are unhappy. Is this correct?";
 	}
 	typeSentence(happyRating, 0, userType);
+}
+
+function emotionScore() {
+	var maxEmotionVal = Math.round(maxEmotion.value * 100);
+	var calculatedEmotion = "> I have been attempting to understand your emotions. I've found you to be " + maxEmotionVal + "% " + maxEmotion.emotion + ".";
+	typeSentence(calculatedEmotion, 0, emotionJudge);
+}
+
+// This could be a good spot to do a follow-up emotion track — I assume that what ever the computer judges will trigger some reaction?
+function emotionJudge() {
+	var emotionRating;
+	if (maxEmotion.value > .8) {
+		emotionRating = "> I've determined this memory made you very " + maxEmotion.emotion + ". Is this correct?";
+	} else if (maxEmotion.value > .5) {
+		emotionRating = "> I've determined this memory made you " + maxEmotion.emotion + ". Is this correct?";
+	} else {
+		emotionRating = "> I've determined this memory made you a little " + maxEmotion.emotion + ". Is this correct?";
+	}
+	typeSentence(emotionRating, 0, userType);
 }
 
 function userType() {
