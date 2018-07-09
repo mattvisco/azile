@@ -40,6 +40,7 @@ function activateStaticCanvas() {
 }
 
 // Reset all flags here
+// TODO: this reset should prolly have some window of time until face search restarts (setTimeout around some variable reset, gotta think more to decide)
 function resetAlize() {
 	foundFace = false;
 	faceDistance = 0;

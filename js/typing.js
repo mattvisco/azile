@@ -9,6 +9,27 @@ var exitExperienceTimeout;
 var textContainer = $('#text-container');
 var textWrapper = $('#text-wrapper');
 
+var TIMETILLRESET = 15000; // Upon a period of requiring user input, this will determine how long we wait until the experience auto reset
+
+// Initilize one time listener to listen for y/n type if we need that to move chat flow foward
+function initKeyListener () {
+	$('body').keypress(function(event){
+		if (listeningForAnswer) {
+			if(event.key == 'y') {
+				textContainer.append('y</p>');
+				moveToNextStep();
+			} else if (event.key == 'n') {
+				textContainer.append('n</p>');
+				moveToNextStep();
+				if (currentQuestion == 1) { // If no means reset than include in this conditional
+					resetAlize();
+				}
+			}
+		}
+	})
+}
+
+// Scrolls the text container to be stay visible as text gets appended onto it
 function scroll() {
 	if (textContainer.height() + textContainer.position().top >= textWrapper.height() - 100) {
 		textContainer.css({
@@ -17,6 +38,8 @@ function scroll() {
 	}
 }
 
+// Recursively calls typeSentence to produce the typing flow
+// This function is asyncronous so requires the use of a callback to allow for sequentially typing to works
 function typeSentence(sentence, index, callback) {
 	scroll();
 	textContainer.append(sentence.charAt(index));
@@ -35,12 +58,19 @@ function typeSentence(sentence, index, callback) {
 	}
 }
 
+// A simple function to pass into the <typeSentence> function if the question flow should end directly after a question has been asked
+function questionAnswered() {
+	questionAnswered = true;
+}
+
+// Instant display of sentence
 function displaySentence(sentence) {
 	scroll();
 	textContainer.append('<p>');
 	textContainer.append(sentence);
 }
 
+// Generates the animating block that functions as a tip for the user to type
 function animateBlock() {
 	textContainer.append('<span class="block">&block;</span>');
 	blockInterval = setInterval(function(){
@@ -48,41 +78,13 @@ function animateBlock() {
 	},1000);
 }
 
-// Not working, needs more thought
-function animateEllipse() {
-	textContainer.append('<span class="ellipse" id="e1">.</span>');
-	textContainer.append('<span class="ellipse" id="e2">.</span>');
-	textContainer.append('<span class="ellipse" id="e3">.</span>');
-	ellipseIntervals.push(setInterval(function(){
-		$('#e1').toggle();
-	},3000));
-	ellipseIntervals.push(setInterval(function(){
-		$('#e2').toggle();
-	},1500));
-	ellipseIntervals.push(setInterval(function(){
-		$('#e3').toggle();
-	},750));
-}
-
-
+// First question, asks user if they would like to help the machine
 function intro() {
 	textContainer.append('<p>');
-	typeSentence(introSentence, 0, userType);
+	typeSentence(introSentence, 0, yesOrNo);
 }
 
-function smileForMe() {
-	textContainer.append('<p>');
-	typeSentence(smileSentence, 0);
-	smileTimeout = setTimeout(function() {
-		questionAnswered = true;
-	}, 5000); // If it takes more than 5s to smile than trigger end of question
-
-	// TODO: some progress element
-	// displaySentence("> Calculating", false);
-	// animateEllipse();
-	// textContainer.append('</p>');
-}
-
+// Prompt to get user to think of an important memory
 function thinkOfFriend() {
 	textContainer.append('<p>');
 	typeSentence(friendSentence, 0);
@@ -91,29 +93,17 @@ function thinkOfFriend() {
 	}, 10000); // Wait 10s to determine emotion
 }
 
-function smileScore() {
-	smileValue = Math.round(smileValue * 100);
-	var calculatedHappiness = "> Based on my calculation you are " + smileValue + "% happy.";
-	typeSentence(calculatedHappiness, 0, happyRating);
-}
-
-function happyRating() {
-	var happyRating;
-	if (smileValue > 80) {
-		happyRating = "> I've determined you are happy. Is this correct?";
-	} else {
-		happyRating = "> I've determined you are unhappy. Is this correct?";
-	}
-	typeSentence(happyRating, 0, userType);
-}
-
+// First time machine analyzes human emotion and displays to user
+// Question moves into emotionJudge and the user will have to input y/n
 function emotionScore() {
-	var maxEmotionVal = Math.round(maxEmotion.value * 100);
+	var maxEmotionVal = Math.round(maxEmotion.value * 100); // convert emotion value into a percentage
 	var calculatedEmotion = "> I have been attempting to understand your emotions. I've found you to be " + maxEmotionVal + "% " + maxEmotion.emotion + ".";
 	typeSentence(calculatedEmotion, 0, emotionJudge);
 }
 
-// This could be a good spot to do a follow-up emotion track — I assume that what ever the computer judges will trigger some reaction?
+// Converts emotion percentage value into a human readable analysis i.e. 80% happy = ecstatic, would need to do some work to
+// QUESTION:  This could be a good spot to do a follow-up emotion track — I assume that what ever the computer judges will trigger some reaction?
+// QUESTION: Branch begins after this, where does it go? How does agreeing or disagreeing effect the next question? What do we do with the emotional reaction this comment may generate? 
 function emotionJudge() {
 	var emotionRating;
 	if (maxEmotion.value > .8) {
@@ -123,30 +113,26 @@ function emotionJudge() {
 	} else {
 		emotionRating = "> I've determined this memory made you a little " + maxEmotion.emotion + ". Is this correct?";
 	}
-	typeSentence(emotionRating, 0, userType);
+	typeSentence(emotionRating, 0, yesOrNo);
 }
 
-function userType() {
+// Example question
+function nextQuestion() {
+	var nextSentence = "whats up";
+	textContainer.append('<p>');
+	typeSentence(nextSentence, 0, questionAnswered);
+}
+
+// This function displays the y/n prompt
+// Chat doesn't move forward until a user answers the question
+function yesOrNo() {
 	displaySentence(yOrN);
 	animateBlock();
-	listeningForAnswer = true;
-	$('body').keypress(function(event){
-		if (listeningForAnswer) {
-			if(event.key == 'y') {
-				textContainer.append('y</p>');
-				moveToNextStep();
-			} else if (event.key == 'n') {
-				textContainer.append('n</p>');
-				moveToNextStep();
-				if (currentQuestion == 1) {
-					resetAlize(); // TODO: this reset is glitchy, will prolly need some window of time until face search restarts
-				}
-			}
-		}
-	})
-	exitExperienceTimeout = setTimeout(resetAlize, 10000);
+	listeningForAnswer = true; // This will allow the type listener to notify us if y/n has been typed
+	exitExperienceTimeout = setTimeout(resetAlize, TIMETILLRESET); // On periods of waiting if it is too long reset experience
 }
 
+// This clears the question waiting setup and completes the question answer flow
 function moveToNextStep() {
 	clearInterval(blockInterval);
 	$('.block').remove();

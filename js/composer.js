@@ -3,6 +3,7 @@ function setup () {
 	initStatic();
 	startTracking();
 	initializeEscToReset();
+	initKeyListener();
 }
 
 function askQuestion(question, timeout, timeoutAmt) {
@@ -27,6 +28,9 @@ function draw () {
 				askQuestion(thinkOfFriend, false);
 			} else if (currentQuestion == 2) {
 				askQuestion(emotionScore, false);
+			} else if (currentQuestion == 3) {
+				// Example question, remove when ready to put real question in
+				askQuestion(nextQueastion, false);
 			}
 		}
 	} else {

@@ -41,17 +41,8 @@ function trackingLoop() {
     // 5 = happy
     max = maxArr.indexOf(Math.max.apply(Math, maxArr));
 
-    // This was the "smile for me" flow
-    // if (currentQuestion == 2) { // If q2 we are waiting for a smiling to complete the question loop
-    //   smileValue = Math.max(smileValue, er[5].value);
-    //   if (er[5].value > 0.8) {
-    //     questionAnswered = true;
-    //     clearTimeout(smileTimeout);
-    //   }
-    // }
-
-    // Alternative start flow
-    if (currentQuestion == 2 && !questionAnswered) { // If q2 we are looking for strongest emotion
+    // If q2 we are looking for strongest emotion during that period of question asked
+    if (currentQuestion == 2 && !questionAnswered) {
       if (er[max].value > maxEmotion.value) {
         maxEmotion = er[max];
       }
