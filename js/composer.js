@@ -14,6 +14,7 @@ function askQuestion(question, timeout, timeoutAmt) {
 	}
 	questionAnswered = false;
 	currentQuestion++;
+	console.log(currentQuestion);
 }
 
 function draw () {
@@ -25,12 +26,15 @@ function draw () {
 				askQuestion(intro, true, 2000);
 			} else if (currentQuestion == 1) {
 				// askQuestion(smileForMe, false);
-				askQuestion(thinkOfFriend, false);
+				askQuestion(happyThoughts, false);
 			} else if (currentQuestion == 2) {
-				askQuestion(emotionScore, false);
+				askQuestion(gifTown, false);
 			} else if (currentQuestion == 3) {
-				// Example question, remove when ready to put real question in
-				askQuestion(nextQueastion, false);
+				askQuestion(emotionScore, false);
+			} else if (currentQuestion == 4) {
+				askQuestion(end, false);
+			} else {
+				showAnalytics();
 			}
 		}
 	} else {

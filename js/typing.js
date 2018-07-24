@@ -39,7 +39,7 @@ function scroll() {
 }
 
 // Recursively calls typeSentence to produce the typing flow
-// This function is asyncronous so requires the use of a callback to allow for sequentially typing to works
+// This function is asyncronous so requires the use of a callback to allow for sequential typing to work
 function typeSentence(sentence, index, callback) {
 	scroll();
 	textContainer.append(sentence.charAt(index));
@@ -47,7 +47,7 @@ function typeSentence(sentence, index, callback) {
 	if (index < sentence.length) {
 		setTimeout(function(){
 		    typeSentence(sentence, index, callback);
-		}, 33);
+		}, 1);
 	} else if (callback) {
 		textContainer.append('</p>');
 		setTimeout(function(){
@@ -90,9 +90,26 @@ function thinkOfFriend() {
 	typeSentence(friendSentence, 0);
 	smileTimeout = setTimeout(function() {
 		questionAnswered = true;
-	}, 10000); // Wait 10s to determine emotion
+	}, 7000); // Wait 7s to determine emotion
 }
 
+function happyThoughts() {
+	var nextSentence = "Today I'm exploring how people react to certain stimuli. Let's start:";
+	textContainer.append('<p>');
+	typeSentence(nextSentence, 0);
+	smileTimeout = setTimeout(function() {
+		questionAnswered = true;
+	}, 4000); // Wait 4s to determine emotion
+}
+
+function gifTown() {
+	$( '#gif' ).show();
+	analyticsTimeout = setTimeout(function() {
+		$( '#gif' ).hide();
+		takeSnapshot();
+		questionAnswered = true;
+	}, 5000);	
+}
 // First time machine analyzes human emotion and displays to user
 // Question moves into emotionJudge and the user will have to input y/n
 function emotionScore() {
@@ -123,6 +140,26 @@ function nextQuestion() {
 	typeSentence(nextSentence, 0, questionAnswered);
 }
 
+// Example question
+function monkeys() {
+	var nextSentence = "Now think of a time when the monkeys entered Uulanbataar.";
+	textContainer.append('<p>');
+	typeSentence(nextSentence, 0);
+	smileTimeout = setTimeout(function() {
+		questionAnswered = true;
+	}, 7000); // Wait 7s to determine emotion
+}
+
+// Example Final Question
+function end() {
+	var nextSentence = "Thanks for your input. By learning to understand people my creators will soon be able to make our interactions more human.";
+	textContainer.append('<p>');
+	typeSentence(nextSentence, 0);
+	smileTimeout = setTimeout(function() {
+		questionAnswered = true;
+	}, 5000); // Wait 7s to determine emotion
+}
+
 // This function displays the y/n prompt
 // Chat doesn't move forward until a user answers the question
 function yesOrNo() {
@@ -140,3 +177,4 @@ function moveToNextStep() {
 	listeningForAnswer = false;
 	questionAnswered = true;
 }
+

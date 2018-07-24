@@ -27,7 +27,10 @@ function initVariables() {
   // Face contour overlay
 	overlay = document.getElementById('overlay');
 	overlayCC = overlay.getContext('2d');
-	$( '#overlay' ).hide(); // enables fadeIn/Out vs. setting opacity in CSS
+	$( '#overlay' ).hide(); 
+	$( '#analytics' ).hide();
+	$( '#gif' ).hide();
+	gifSrc();
 	createVideo();
 }
 
@@ -55,6 +58,9 @@ function resetAlize() {
 		top: 0
 	});
 	$( '#overlay' ).hide();
+	$( '#analytics' ).hide();
+	$( '#gif' ).hide();
+	gifSrc();
 	activateStaticCanvas();
 }
 
@@ -63,14 +69,41 @@ function resetAlize() {
 function initializeEscToReset() {
 	$('body').keypress(function(event){
 		if (event.key == 27) {
-					resetAlize();
+			resetAlize();
 		}
 	});
 }
 
+//  GIF Randomizer
+function gifSrc() {
+  var img = document.getElementById('gifSrc');
+
+  // Giphy tag query
+  q = "cute"; 
+  
+  // Giphy API call
+  request = new XMLHttpRequest;
+  request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&rating=g&tag='+q, true);
+  
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400){
+      data = JSON.parse(request.responseText).data.image_url;
+      console.log('go');
+	  img.src = data;
+    } else {
+      console.log('reached giphy, but API returned an error');
+     }
+  };
+
+  request.onerror = function() {
+    console.log('connection error');
+  };
+
+}
+
 function createVideo() {
 	//Use webcam
-	video = document.createElement('video');
+	video = document.getElementById('videoel');
 	video.width = 320;
 	video.height = 240;
 	video.autoplay = true;

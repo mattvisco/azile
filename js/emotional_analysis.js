@@ -67,38 +67,38 @@ ec.init(emotionModel);
 var emotionData = ec.getBlank();
 
 
-// Emotion based photo trigger runs every 1s
-// setInterval(function () {
-//     takeSnapshot();
-//   }, 1000);
+// // Emotion based photo trigger runs every 1s
+// // setInterval(function () {
+// //     takeSnapshot();
+// //   }, 1000);
 
 
-function takeSnapshot() {
-  var emotion = [
-    anger,
-    disgust,
-    fear,
-    sad,
-    surprise,
-    happy
-  ];
+// function takeSnapshot() {
+//   var emotion = [
+//     anger,
+//     disgust,
+//     fear,
+//     sad,
+//     surprise,
+//     happy
+//   ];
 
-  // Get IMG by ID based on which emotion is in the max var
-  var j = emotion[max];
-  console.log(j);
+//   // Get IMG by ID based on which emotion is in the max var
+//   var j = emotion[max];
+//   console.log(j);
 
-  var context;
-  var width = video.offsetWidth
-    , height = video.offsetHeight;
+//   var context;
+//   var width = video.offsetWidth
+//     , height = video.offsetHeight;
 
-  canvas = canvas || document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  // TODO: If we use this fn we should give the canvas ids or class so we don't knock um out when we fadeOut static canvas
+//   canvas = canvas || document.createElement('canvas');
+//   canvas.width = width;
+//   canvas.height = height;
+//   // TODO: If we use this fn we should give the canvas ids or class so we don't knock um out when we fadeOut static canvas
 
-  context = canvas.getContext('2d');
-  context.drawImage(video, 0, 0, width, height);
+//   context = canvas.getContext('2d');
+//   context.drawImage(video, 0, 0, width, height);
 
-  j.src = canvas.toDataURL('image/png');
-  // document.body.appendChild(img);
-}
+//   j.src = canvas.toDataURL('image/png');
+//   // document.body.appendChild(img);
+// }

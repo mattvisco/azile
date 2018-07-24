@@ -2,6 +2,7 @@ body {
 	background-color: #000;
 	margin: 0px;
 	overflow: hidden;
+	font-family: 'VT323', monospace;
 }
 
 .terminal {
@@ -13,16 +14,23 @@ body {
 }
 
 .terminal-text {
-	color: green;
-	font-family: Courier New;
-	font-style: bold;
+	color: #33ff33;
 	font-size: 40px;
 	width: 90%;
 	margin: 0 5%;
 	position: relative;
 }
 
+.block {
+	font-size: 30px;
+}
+
 /*** Mirror video ***/
+
+#videoel {
+	position: absolute;
+	top: -1000px;
+}
 
 #overlay {
 	transform: scaleX(-1);
@@ -40,3 +48,58 @@ body {
  	width: 100vw;
  	height: 100vh;
 }
+
+#gif, #analytics {
+	position: fixed;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+	height: 75vh;
+	width: 75vw;
+	background: white;
+	background: #357542;
+	color: #fbe293;
+	border: 3px solid #fbe293;
+    font-size: 29px;
+}
+
+#windowbar {
+	border-bottom: 3px solid #fbe293;
+	height: 35px;
+    padding-top: 5px;
+	padding-left: 20px;
+}
+
+#windowbar div {
+    float: right;
+    padding-top: 7px;
+    border-left: 3px solid #fbe293;
+    text-align: center;
+    width: 40px;
+    height: 35px;
+    position: relative;
+    top: -7px;
+}
+
+#analytics .infoBox {
+	height: 240px;
+	margin: 20px 0;
+}
+
+#analytics img {
+	transform: scale(-1, 1);
+    height: 240px;
+    width: 320px;
+    margin: 0 20px;
+    float: left;
+}
+
+#gifSrc {
+	position: absolute;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+#analytics .imgText {
+	height: 240px;
+}
+

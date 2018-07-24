@@ -3,20 +3,67 @@
 <head>
 	<title>Ernest Azile</title>
 	<meta charset='utf-8'>
+	<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 
 <body>
 
-	<!-- Hidden CLM Tracker Container -->
+	<!-- CLM Tracker Container -->
     <div id="overlay-wrapper">
+    	<!-- Need video element for snapshot functionality -->
+  	    <video id="videoel" width="320" height="240"></video>
     	<!--canvas needs w/h defined in the HTML element to match createVideo() resolution or overlay.draw() won't match up -->
-      <canvas id="overlay" width="320" height="240"></canvas>
+	    <canvas id="overlay" width="320" height="240"></canvas>
     </div>
 
     <div class="terminal" id="text-wrapper">
-				<div class="terminal-text" id="text-container">
+		<div class="terminal-text" id="text-container">
+	</div>
+
+
+	<!-- GIF -->
+	<div id="gif">
+		<div id="windowbar">
+			Human Response Analysis
+			<div id="x">X</div>
+			<div id="max">&#10066;</div>
+			<div id="underscore">_</div>
 		</div>
+
+		<img id="gifSrc" src="https://media.giphy.com/media/100QWMdxQJzQC4/giphy.gif" />
+
+	</div>
+
+
+	<!-- ENDING ANALYTICS -->
+	<div id="analytics">
+		<div id="windowbar">
+			Emotion Analysis Report
+			<div id="x">X</div>
+			<div id="max">&#10066;</div>
+			<div id="underscore">_</div>
+		</div>
+
+		<div class="infoBox">
+		<img id="emo1" src="#" />
+			<p class="imgText">
+				HAPPY
+				<br /><br />
+				Bright smiles shine forward lorem ipsum solor din amet. Baguio malang foku la croix.
+			</p>
+		</div>
+
+<!-- 		<div class="infoBox">
+		<img id="emo2" src="#" />
+			<p class="imgText">
+				FUNKY
+				<br /><br />
+				Babang rang a lang dang lorem ipsum solor din amet. Baguio malang foku la croix.
+			</p>
+		</div> -->
+	</div>
+
 
 	<script src="js/vendors/libs/jquery.min.js"></script>
 
@@ -47,6 +94,7 @@
 	<script src="js/static_intro.js"></script>
 	<script src="js/emotional_analysis.js"></script>
 	<script src="js/typing.js"></script>
+	<script src="js/analytics.js"></script>
 	<script src="js/composer.js"></script>
 
 
