@@ -1,3 +1,11 @@
+function showAnalytics() {
+  $( '#analytics' ).show();
+  smileTimeout = setTimeout(function() {
+    questionAnswered = true;
+  $( '#analytics' ).hide();
+  }, 5000); // Wait 7s to determine emotion
+}
+
 function takeSnapshot() {
   var video = document.getElementById('videoel')
       , canvas;
@@ -16,12 +24,16 @@ function takeSnapshot() {
   img.src = canvas.toDataURL('image/png');
 }
 
+function guessUpdate() {
+  var guess = document.getElementById('guess');
+  var guessResult = document.getElementById('guessResult');
 
-function showAnalytics() {
-  $( '#analytics' ).show();
-  analyticsTimeout = setTimeout(function() {
-    resetAlize();
-  }, 7000);
+  guess.textContent = maxEmotionVal + "% confidence: " + maxEmotion.emotion;
+
+  if (guessCorrect == true) {
+    guessResult.textContent = "Great, glad to hear my model is working!";
+  } else {
+    guessResult.textContent = "Sorry I didn't get it right, I'm still learning :-{";
+  }
+
 }
-
-

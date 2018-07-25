@@ -66,28 +66,28 @@ function initStatic() {
 
 
 function initParams() {
-	badTVPass.uniforms[ 'distortion' ].value = 5;
-	badTVPass.uniforms[ 'distortion2' ].value = 5;
-	badTVPass.uniforms[ 'speed' ].value = 0.2;
-	badTVPass.uniforms[ 'rollSpeed' ].value = 0.0;
-	rgbPass.uniforms[ 'angle' ].value = 0;
-	rgbPass.uniforms[ 'amount' ].value = 0.07;
+	badTVPass.uniforms[ 'distortion' ].value = 3;
+	badTVPass.uniforms[ 'distortion2' ].value = 4;
+	badTVPass.uniforms[ 'speed' ].value = 0.3;
+	badTVPass.uniforms[ 'rollSpeed' ].value = 0.1;
+	rgbPass.uniforms[ 'angle' ].value = 1;
+	rgbPass.uniforms[ 'amount' ].value = 0.05;
 	staticPass.uniforms[ 'amount' ].value = 0.05;
 	filmPass.uniforms[ 'sCount' ].value = 679;
-	filmPass.uniforms[ 'sIntensity' ].value = 0.05;
-	filmPass.uniforms[ 'nIntensity' ].value = 0.1;
+	filmPass.uniforms[ 'sIntensity' ].value = 0.5;
+	filmPass.uniforms[ 'nIntensity' ].value = 0.3;
 }
 
 function updateParams() {
-	badTVPass.uniforms[ 'distortion' ].value = map_range(faceDistance,faceLow,faceHigh,5.0, 1.0);
-	badTVPass.uniforms[ 'distortion2' ].value = map_range(faceDistance,faceLow,faceHigh,5.0, 1.2);
-	badTVPass.uniforms[ 'speed' ].value = map_range(faceDistance,faceLow,faceHigh,0.2, 0.0);
-	badTVPass.uniforms[ 'rollSpeed' ].value = map_range(faceDistance,faceLow,faceHigh,0.0, 0.0);
+	badTVPass.uniforms[ 'distortion' ].value = map_range(faceDistance,faceLow,faceHigh,3.0, 1.0);
+	badTVPass.uniforms[ 'distortion2' ].value = map_range(faceDistance,faceLow,faceHigh,4.0, 1.2);
+	badTVPass.uniforms[ 'speed' ].value = map_range(faceDistance,faceLow,faceHigh,0.3, 0.0);
+	badTVPass.uniforms[ 'rollSpeed' ].value = map_range(faceDistance,faceLow,faceHigh,0.1, 0.0);
 	rgbPass.uniforms[ 'amount' ].value = map_range(faceDistance,faceLow,faceHigh,0.05, 0.01);
 	// staticPass.uniforms[ 'amount' ].value = map_range(faceDistance,faceLow,faceHigh,0.07, 0.03);
 	// filmPass.uniforms[ 'sCount' ].value = map_range(faceDistance,faceLow,faceHigh,679.0, 0.0);
-	filmPass.uniforms[ 'sIntensity' ].value = map_range(faceDistance,faceLow,faceHigh,0.05, 0.01);
-	filmPass.uniforms[ 'nIntensity' ].value = map_range(faceDistance,faceLow,faceHigh,0.1, 0.0);
+	filmPass.uniforms[ 'sIntensity' ].value = map_range(faceDistance,faceLow,faceHigh,0.5, 0.01);
+	filmPass.uniforms[ 'nIntensity' ].value = map_range(faceDistance,faceLow,faceHigh,0.3, 0.0);
 }
 
 
@@ -142,8 +142,11 @@ function faceDetectionProcessing() {
 			// For some reason this is adding in a momentary glitch of the overlay popping out
 			// It has something to do with the overlay fading out multiple times I beleive
 			$( "canvas" ).each(function(){
-				// if(this.id != 'overlay') {
-					$(this).fadeOut(3333);
+				if(this.id != 'overlay') {
+					$(this).fadeOut(2345);
+				}
+				//  else {
+				// 	$(this).fadeOut(7777);
 				// }
 			})
 			// $( '#overlay' ).fadeOut(1000);

@@ -13,7 +13,7 @@ var experienceBegin = false;
 
 var smileValue = 0.0;
 var maxEmotion = {
-	emotion: 'happy',
+	emotion: 'unsure',
 	value: 0
 }
 var smileTimeout;
@@ -22,6 +22,9 @@ var listeningForAnswer = false;
 
 var currentQuestion = 0;
 var questionAnswered = true;
+
+var guessCorrect;
+var maxEmotionVal;
 
 function initVariables() {
   // Face contour overlay
@@ -66,39 +69,45 @@ function resetAlize() {
 
 // This doesn't work on new apple computer w/ touchbar...
 // Test to see if it works on old keyboard, might need to change equality
-function initializeEscToReset() {
-	$('body').keypress(function(event){
-		if (event.key == 27) {
-			resetAlize();
-		}
-	});
-}
+// function initializeEscToReset() {
+// 	$('body').keypress(function(event){
+// 		if (event.key == 27) {
+// 			resetAlize();
+// 		}
+// 	});
+// }
+
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+        isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+        resetAlize();
+    }
+};
 
 //  GIF Randomizer
 function gifSrc() {
-  var img = document.getElementById('gifSrc');
+  var img = document.getElementsByClassName('gifSrc');
+  console.log(img);
 
   // Giphy tag query
   q = "cute"; 
   
   // Giphy API call
-  request = new XMLHttpRequest;
-  request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&rating=g&tag='+q, true);
-  
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400){
-      data = JSON.parse(request.responseText).data.image_url;
-      console.log('go');
-	  img.src = data;
-    } else {
-      console.log('reached giphy, but API returned an error');
-     }
-  };
+  var gif = $.get('https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&tag=' + q );
 
-  request.onerror = function() {
-    console.log('connection error');
-  };
-
+  gif.done ( function(data) {
+      data = JSON.parse(gif.responseText).data.image_url;
+      console.log('gif');
+	  for (var i = 0;i < img.length;i++) {
+	  	img[i].src = data;
+	  }
+  });
 }
 
 function createVideo() {

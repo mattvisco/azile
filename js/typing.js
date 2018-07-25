@@ -1,7 +1,7 @@
-var introSentence = ">  Hello user, my name is Ernest Alize. I am learning how to read emotions, can you help me?";
+var introSentence = ">  Hello, my name is Ernest. I am learning how to read emotions, can you help me?";
 var smileSentence = "> Thank you for helping. Please can you smile for me."
 var friendSentence = "> Thank you for helping. Can you think of a time with a friend that was particularly memorable."
-var yOrN = "> [Type y/n to continue]";
+var yOrN = "> [Type y/n to continue] ";
 var blockInterval;
 var ellipseIntervals = [];
 var exitExperienceTimeout;
@@ -17,17 +17,30 @@ function initKeyListener () {
 		if (listeningForAnswer) {
 			if(event.key == 'y') {
 				textContainer.append('y</p>');
+					if (currentQuestion == 4) {
+						guessCorrect = true;
+						guessUpdate();
+					} else if (currentQuestion == 6) { // If no means reset than include in this conditional
+						currentQuestion = 2;
+						gifSrc();
+					} 
 				moveToNextStep();
 			} else if (event.key == 'n') {
-				textContainer.append('n</p>');
-				moveToNextStep();
-				if (currentQuestion == 1) { // If no means reset than include in this conditional
+			textContainer.append('n</p>');
+				if (currentQuestion == 1 || currentQuestion == 6) { // If no means reset than include in this conditional
 					resetAlize();
+				} else if ( currentQuestion == 4) {
+					guessCorrect = false;
+					guessUpdate();
+					moveToNextStep();
+				} else {
+					moveToNextStep();
 				}
 			}
 		}
 	})
 }
+
 
 // Scrolls the text container to be stay visible as text gets appended onto it
 function scroll() {
@@ -60,6 +73,7 @@ function typeSentence(sentence, index, callback) {
 
 // A simple function to pass into the <typeSentence> function if the question flow should end directly after a question has been asked
 function questionAnswered() {
+	console.log('qa');
 	questionAnswered = true;
 }
 
@@ -94,28 +108,27 @@ function thinkOfFriend() {
 }
 
 function happyThoughts() {
-	var nextSentence = "Today I'm exploring how people react to certain stimuli. Let's start:";
+	var nextSentence = "Great! Let's get started:";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0);
 	smileTimeout = setTimeout(function() {
 		questionAnswered = true;
-	}, 4000); // Wait 4s to determine emotion
+	}, 2500); // Wait 4s to determine emotion
 }
 
 function gifTown() {
 	$( '#gif' ).show();
 	analyticsTimeout = setTimeout(function() {
 		$( '#gif' ).hide();
-		takeSnapshot();
 		questionAnswered = true;
 	}, 5000);	
 }
 // First time machine analyzes human emotion and displays to user
 // Question moves into emotionJudge and the user will have to input y/n
 function emotionScore() {
-	var maxEmotionVal = Math.round(maxEmotion.value * 100); // convert emotion value into a percentage
-	var calculatedEmotion = "> I have been attempting to understand your emotions. I've found you to be " + maxEmotionVal + "% " + maxEmotion.emotion + ".";
-	typeSentence(calculatedEmotion, 0, emotionJudge);
+	maxEmotionVal = Math.round(maxEmotion.value * 100); // convert emotion value into a percentage
+	var calculatedEmotion = "> I am " + maxEmotionVal + "% confident that made you " + maxEmotion.emotion + ". Does that sound right?";
+	typeSentence(calculatedEmotion, 0, yesOrNo);
 }
 
 // Converts emotion percentage value into a human readable analysis i.e. 80% happy = ecstatic, would need to do some work to
@@ -124,11 +137,11 @@ function emotionScore() {
 function emotionJudge() {
 	var emotionRating;
 	if (maxEmotion.value > .8) {
-		emotionRating = "> I've determined this memory made you very " + maxEmotion.emotion + ". Is this correct?";
+		emotionRating = "> I've determined this made you very " + maxEmotion.emotion + "! Is that correct?";
 	} else if (maxEmotion.value > .5) {
-		emotionRating = "> I've determined this memory made you " + maxEmotion.emotion + ". Is this correct?";
+		emotionRating = "> I've determined this made you " + maxEmotion.emotion + ". Is that correct?";
 	} else {
-		emotionRating = "> I've determined this memory made you a little " + maxEmotion.emotion + ". Is this correct?";
+		emotionRating = "> I've determined this didn't have much of an effect. Is that correct?";
 	}
 	typeSentence(emotionRating, 0, yesOrNo);
 }
@@ -152,12 +165,19 @@ function monkeys() {
 
 // Example Final Question
 function end() {
-	var nextSentence = "Thanks for your input. By learning to understand people my creators will soon be able to make our interactions more human.";
+	var nextSentence = "I feel like I learned a lot from you! Have a great day.";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0);
 	smileTimeout = setTimeout(function() {
 		questionAnswered = true;
-	}, 5000); // Wait 7s to determine emotion
+	}, 4000); // Wait 7s to determine emotion
+}
+
+// Example Final Question
+function oneMore() {
+	var nextSentence = "Thanks for helping me :) Can we try another?";
+	textContainer.append('<p>');
+	typeSentence(nextSentence, 0, yesOrNo);
 }
 
 // This function displays the y/n prompt
@@ -175,6 +195,8 @@ function moveToNextStep() {
 	$('.block').remove();
 	clearTimeout(exitExperienceTimeout);
 	listeningForAnswer = false;
-	questionAnswered = true;
+	nextStep = setTimeout(function() {
+		questionAnswered = true;
+	}, 1000);
 }
 

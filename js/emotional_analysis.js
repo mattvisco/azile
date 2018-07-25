@@ -41,14 +41,19 @@ function trackingLoop() {
     // 5 = happy
     max = maxArr.indexOf(Math.max.apply(Math, maxArr));
 
-    // If q2 we are looking for strongest emotion during that period of question asked
-    if (currentQuestion == 2 && !questionAnswered) {
+    // If q3 we are looking for strongest emotion during that period of question asked
+    if (currentQuestion == 3) {
       if (er[max].value > maxEmotion.value) {
         maxEmotion = er[max];
-      }
+        takeSnapshot();
+        console.log(maxEmotion);
+      } 
+    } else if (currentQuestion != 4) {
+        maxEmotion = {
+          emotion: 'happy',
+          value: 0
+        }        
     }
-
-
 
     // Log max for testing which emotion is dominant
     // console.log(max);

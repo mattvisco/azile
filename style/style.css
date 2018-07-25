@@ -60,6 +60,7 @@ body {
 	color: #fbe293;
 	border: 3px solid #fbe293;
     font-size: 29px;
+    text-align: center;
 }
 
 #windowbar {
@@ -81,25 +82,32 @@ body {
 }
 
 #analytics .infoBox {
-	height: 240px;
 	margin: 20px 0;
 }
 
-#analytics img {
-	transform: scale(-1, 1);
-    height: 240px;
-    width: 320px;
-    margin: 0 20px;
-    float: left;
+#gif img, #analytics img {
+    max-height: 300px;
+    width: 40%;
+    padding: 0 20px;
+    display: inline-block;
 }
 
-#gifSrc {
+#analytics img:nth-child(2) {
+	transform: scale(-1, 1);
+}
+
+#gif .gifSrc {
 	position: absolute;
+	width: 75%;
+	max-height: 75%;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
 }
 
 #analytics .imgText {
-	height: 240px;
+}
+
+#guess {
+	text-transform: uppercase;
 }
 

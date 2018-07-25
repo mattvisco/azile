@@ -2,7 +2,7 @@ function setup () {
 	initVariables();
 	initStatic();
 	startTracking();
-	initializeEscToReset();
+	// initializeEscToReset();
 	initKeyListener();
 }
 
@@ -32,9 +32,12 @@ function draw () {
 			} else if (currentQuestion == 3) {
 				askQuestion(emotionScore, false);
 			} else if (currentQuestion == 4) {
-				askQuestion(end, false);
-			} else {
-				showAnalytics();
+				askQuestion(showAnalytics, false);
+				console.log(guessCorrect);
+			} else if (currentQuestion == 5) {
+				askQuestion(oneMore, false);
+			} else if (currentQuestion == 6) {
+				resetAlize();
 			}
 		}
 	} else {
