@@ -23,7 +23,7 @@ function initKeyListener () {
 					} else if (currentQuestion == 6) { // If no means reset than include in this conditional
 						currentQuestion = 2;
 						gifSrc();
-					} 
+					}
 				moveToNextStep();
 			} else if (event.key == 'n') {
 			textContainer.append('n</p>');
@@ -58,12 +58,12 @@ function typeSentence(sentence, index, callback) {
 	textContainer.append(sentence.charAt(index));
 	index += 1;
 	if (index < sentence.length) {
-		setTimeout(function(){
+		typingTimeout = setTimeout(function(){
 		    typeSentence(sentence, index, callback);
 		}, 1);
 	} else if (callback) {
 		textContainer.append('</p>');
-		setTimeout(function(){
+		typingTimeout = setTimeout(function(){
 			callback();
 		}, 400);
 	} else {
@@ -121,7 +121,7 @@ function gifTown() {
 	analyticsTimeout = setTimeout(function() {
 		$( '#gif' ).hide();
 		questionAnswered = true;
-	}, 5000);	
+	}, 5000);
 }
 // First time machine analyzes human emotion and displays to user
 // Question moves into emotionJudge and the user will have to input y/n
@@ -133,7 +133,7 @@ function emotionScore() {
 
 // Converts emotion percentage value into a human readable analysis i.e. 80% happy = ecstatic, would need to do some work to
 // QUESTION:  This could be a good spot to do a follow-up emotion track — I assume that what ever the computer judges will trigger some reaction?
-// QUESTION: Branch begins after this, where does it go? How does agreeing or disagreeing effect the next question? What do we do with the emotional reaction this comment may generate? 
+// QUESTION: Branch begins after this, where does it go? How does agreeing or disagreeing effect the next question? What do we do with the emotional reaction this comment may generate?
 function emotionJudge() {
 	var emotionRating;
 	if (maxEmotion.value > .8) {
@@ -199,4 +199,3 @@ function moveToNextStep() {
 		questionAnswered = true;
 	}, 1000);
 }
-

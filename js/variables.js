@@ -26,11 +26,13 @@ var questionAnswered = true;
 var guessCorrect;
 var maxEmotionVal;
 
+var typingTimeout;
+
 function initVariables() {
   // Face contour overlay
 	overlay = document.getElementById('overlay');
 	overlayCC = overlay.getContext('2d');
-	$( '#overlay' ).hide(); 
+	$( '#overlay' ).hide();
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
 	gifSrc();
@@ -48,6 +50,7 @@ function activateStaticCanvas() {
 // Reset all flags here
 // TODO: this reset should prolly have some window of time until face search restarts (setTimeout around some variable reset, gotta think more to decide)
 function resetAlize() {
+	clearTimeout(typingTimeout);
 	foundFace = false;
 	faceDistance = 0;
 	faceDetectionIsCurrent = false;
@@ -96,8 +99,8 @@ function gifSrc() {
   console.log(img);
 
   // Giphy tag query
-  q = "cute"; 
-  
+  q = "cute";
+
   // Giphy API call
   var gif = $.get('https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&tag=' + q );
 
