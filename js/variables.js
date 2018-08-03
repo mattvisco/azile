@@ -11,11 +11,19 @@ var faceTimestamp;
 
 var experienceBegin = false;
 
-var smileValue = 0.0;
 var maxEmotion = {
 	emotion: 'unsure',
 	value: 0
 }
+var emotions = {
+	anger: 0,
+	disgust: 0,
+	fear: 0,
+	sad: 0,
+	surprise: 0,
+	happy: 0
+};
+var totalEmotionsRead = 0;
 var smileTimeout;
 
 var listeningForAnswer = false;
@@ -27,6 +35,8 @@ var guessCorrect;
 var maxEmotionVal;
 
 var typingTimeout;
+
+
 
 function initVariables() {
   // Face contour overlay
@@ -59,6 +69,15 @@ function resetAlize() {
 	questionAnswered = true;
 	listeningForAnswer = false;
 	smileValue = 0.0;
+	emotions = {
+		anger: 0,
+		disgust: 0,
+		fear: 0,
+		sad: 0,
+		surprise: 0,
+		happy: 0
+	};
+	totalEmotionsRead = 0;
 	$('#text-container').empty();
 	$('#text-container').css({
 		top: 0
@@ -69,16 +88,6 @@ function resetAlize() {
 	gifSrc();
 	activateStaticCanvas();
 }
-
-// This doesn't work on new apple computer w/ touchbar...
-// Test to see if it works on old keyboard, might need to change equality
-// function initializeEscToReset() {
-// 	$('body').keypress(function(event){
-// 		if (event.key == 27) {
-// 			resetAlize();
-// 		}
-// 	});
-// }
 
 document.onkeydown = function(evt) {
     evt = evt || window.event;

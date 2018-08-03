@@ -17,6 +17,11 @@ function askQuestion(question, timeout, timeoutAmt) {
 	console.log(currentQuestion);
 }
 
+function tempFunctionUsedForPrintingOutDatBaseFace() {
+	var baseline = calculateBaslineFace();
+	console.log('your resting face is ' + baseline[0] + 'with ' + baseline[1] + ' certainty.');
+}
+
 function draw () {
 	requestAnimFrame(draw);
 	trackingLoop();
@@ -36,6 +41,7 @@ function draw () {
 				console.log(guessCorrect);
 			} else if (currentQuestion == 5) {
 				askQuestion(oneMore, false);
+				tempFunctionUsedForPrintingOutDatBaseFace();
 			} else if (currentQuestion == 6) {
 				resetAlize();
 			}

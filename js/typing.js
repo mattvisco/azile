@@ -108,7 +108,7 @@ function thinkOfFriend() {
 }
 
 function happyThoughts() {
-	var nextSentence = "Great! Let's get started:";
+	var nextSentence = "> Great! Let's get started:";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0);
 	smileTimeout = setTimeout(function() {
@@ -155,7 +155,7 @@ function nextQuestion() {
 
 // Example question
 function monkeys() {
-	var nextSentence = "Now think of a time when the monkeys entered Uulanbataar.";
+	var nextSentence = "> Now think of a time when the monkeys entered Uulanbataar.";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0);
 	smileTimeout = setTimeout(function() {
@@ -165,7 +165,7 @@ function monkeys() {
 
 // Example Final Question
 function end() {
-	var nextSentence = "I feel like I learned a lot from you! Have a great day.";
+	var nextSentence = "> I feel like I learned a lot from you! Have a great day.";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0);
 	smileTimeout = setTimeout(function() {
@@ -175,7 +175,7 @@ function end() {
 
 // Example Final Question
 function oneMore() {
-	var nextSentence = "Thanks for helping me :) Can we try another?";
+	var nextSentence = "> Thanks for helping me :) Can we try another?";
 	textContainer.append('<p>');
 	typeSentence(nextSentence, 0, yesOrNo);
 }

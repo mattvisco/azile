@@ -31,9 +31,9 @@ function guessUpdate() {
   guess.textContent = maxEmotionVal + "% confidence: " + maxEmotion.emotion;
 
   if (guessCorrect == true) {
-    guessResult.textContent = "Great, glad to hear my model is working!";
+    guessResult.textContent = "> Great, glad to hear my model is working!";
   } else {
-    guessResult.textContent = "Sorry I didn't get it right, I'm still learning :-{";
+    guessResult.textContent = "> Sorry I didn't get it right, I'm still learning :-{";
   }
 
 }
