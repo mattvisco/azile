@@ -24,6 +24,7 @@ var emotions = {
 	happy: 0
 };
 var totalEmotionsRead = 0;
+
 var smileTimeout;
 
 var listeningForAnswer = false;
