@@ -46,6 +46,7 @@ function initVariables() {
 	$( '#overlay' ).hide();
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
+	$( '#reportCard' ).hide();
 	gifSrc();
 	createVideo();
 }
@@ -86,6 +87,7 @@ function resetAlize() {
 	$( '#overlay' ).hide();
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
+	$( '#reportCard' ).hide();
 	gifSrc();
 	activateStaticCanvas();
 }

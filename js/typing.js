@@ -27,12 +27,17 @@ function initKeyListener () {
 				moveToNextStep();
 			} else if (event.key == 'n') {
 			textContainer.append('n</p>');
-				if (currentQuestion == 1 || currentQuestion == 6) { // If no means reset than include in this conditional
+				if (currentQuestion == 1) { // If no means reset than include in this conditional
 					resetAlize();
 				} else if ( currentQuestion == 4) {
 					guessCorrect = false;
 					guessUpdate();
 					moveToNextStep();
+				} else if (currentQuestion == 6) {
+					$( '#reportCard' ).show();
+					reportTimeout = setTimeout(function() {
+						resetAlize();
+					}, 7000);
 				} else {
 					moveToNextStep();
 				}
