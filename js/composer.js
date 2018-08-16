@@ -19,7 +19,7 @@ function askQuestion(question, timeout, timeoutAmt) {
 
 function tempFunctionUsedForPrintingOutDatBaseFace() {
 	var baseline = calculateBaslineFace();
-	console.log('your resting face is ' + baseline[0] + 'with ' + baseline[1] + ' certainty.');
+	console.log('your resting face is ' + baseline[0] + ' with ' + baseline[1] + ' certainty.');
 }
 
 function draw () {

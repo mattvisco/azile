@@ -1,4 +1,4 @@
-var introSentence = ">  Hello, my name is Ernest. I am learning how to read emotions, can you help me?";
+var introSentence = "\n >  Hello,\n my name is Ernest. I am learning how to read emotions, can you help me?";
 var smileSentence = "> Thank you for helping. Please can you smile for me."
 var friendSentence = "> Thank you for helping. Can you think of a time with a friend that was particularly memorable."
 var yOrN = "> [Type y/n to continue] ";
@@ -9,7 +9,7 @@ var exitExperienceTimeout;
 var textContainer = $('#text-container');
 var textWrapper = $('#text-wrapper');
 
-var TIMETILLRESET = 15000; // Upon a period of requiring user input, this will determine how long we wait until the experience auto reset
+var TIMETILLRESET = 15000000; // Upon a period of requiring user input, this will determine how long we wait until the experience auto reset
 
 // Initilize one time listener to listen for y/n type if we need that to move chat flow foward
 function initKeyListener () {

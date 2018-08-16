@@ -47,6 +47,7 @@ function initVariables() {
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
 	$( '#reportCard' ).hide();
+	$( '#about' ).hide();
 	gifSrc();
 	createVideo();
 }
@@ -88,6 +89,8 @@ function resetAlize() {
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
 	$( '#reportCard' ).hide();
+	$( '#about' ).hide();
+	$( '#facebox' ).show();
 	gifSrc();
 	activateStaticCanvas();
 }
@@ -95,6 +98,8 @@ function resetAlize() {
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     var isEscape = false;
+    var isSlash = false;
+
     if ("key" in evt) {
         isEscape = (evt.key == "Escape" || evt.key == "Esc");
     } else {
@@ -102,6 +107,15 @@ document.onkeydown = function(evt) {
     }
     if (isEscape) {
         resetAlize();
+    }
+
+    if ("key" in evt) {
+        isSlash = (evt.key == "/" || evt.key == "?");
+    } else {
+        isSlash = (evt.keyCode == 191);
+    }
+    if (isSlash) {
+		$( '#about' ).toggle();
     }
 };
 

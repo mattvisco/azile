@@ -128,7 +128,7 @@ function animateStatic() {
 		faceDetectionProcessing();
 	} else if (faceDistance >= faceHigh) {
 		faceDetectionIsCurrent = true;
-		$( '#overlay' ).fadeIn(1000); // show overlay tp indicate to user face is being recognized
+		$( '#overlay' ).fadeIn(1000); // show overlay to indicate to user face is being recognized
 		faceTimestamp = new Date();
 	}
 	
@@ -148,8 +148,8 @@ function faceDetectionProcessing() {
 				//  else {
 				// 	$(this).fadeOut(7777);
 				// }
-			})
-			// $( '#overlay' ).fadeOut(1000);
+			});
+				$( '#facebox' ).hide();
 		} else {
 			$( '#overlay' ).hide();
 			faceDetectionIsCurrent = false;

@@ -49,31 +49,50 @@ body {
  	height: 100vh;
 }
 
-#gif, #analytics, #reportCard {
+/*#gif, #analytics, #reportCard, #about*/
+
+.hoverWindow {
 	position: fixed;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
 	height: 75vh;
 	width: 75vw;
-	background: white;
-	background: #357542;
-	color: #fbe293;
-	border: 3px solid #fbe293;
+	border: 3px ridge;
     font-size: 29px;
     text-align: center;
 }
 
-#windowbar {
-	border-bottom: 3px solid #fbe293;
+.grassTheme {
+	background: #357542;
+	color: #fbe293;
+	border-color: #fbe293;
+}
+
+.oceanTheme {
+	background: #2a67c9;
+	color: white;
+	border-color: white;
+}
+
+.homebrewTheme {
+	background: black;
+	color: #33ff33;
+	border-color: #33ff33;
+}
+
+.windowbar {
+	border-bottom: 3px solid;
 	height: 35px;
     padding-top: 5px;
 	padding-left: 20px;
+	text-align: left;
+	text-transform: uppercase;
 }
 
-#windowbar div {
+.windowbar div {
     float: right;
     padding-top: 7px;
-    border-left: 3px solid #fbe293;
+    border-left: 3px solid;
     text-align: center;
     width: 40px;
     height: 35px;
@@ -140,8 +159,36 @@ body {
     background-color: #5daf2a;
 }
 
-.highlight {
+.highlight, .faceboxTitle {
 	display: inline-block;
 	background-color: #b4492c;
 }
+.faceboxTitle {
+	width: 100%;
+	background-color: rgb(0,0,0,0.5);
+}
+
+#bug {
+	position: fixed;
+	right: 2vw;
+	bottom: 2vh;
+	font-size: 40px;
+	color: #33ff33;
+}
+
+#facebox {
+	position: fixed;
+	height: 67vh;
+	width: 67vw;
+	border: 5px solid #33ff33;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 57px;
+	color: #33ff33;
+}
+
 
