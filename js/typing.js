@@ -37,7 +37,7 @@ function initKeyListener () {
 					$( '#reportCard' ).show();
 					reportTimeout = setTimeout(function() {
 						resetAlize();
-					}, 7000);
+					}, 30000);
 				} else {
 					moveToNextStep();
 				}

@@ -20,6 +20,9 @@ function askQuestion(question, timeout, timeoutAmt) {
 function tempFunctionUsedForPrintingOutDatBaseFace() {
 	var baseline = calculateBaslineFace();
 	console.log('your resting face is ' + baseline[0] + ' with ' + baseline[1] + ' certainty.');
+	var averageEmotion = document.getElementById('averageEmotion');
+
+	averageEmotion.textContent = baseline[0];
 }
 
 function draw () {

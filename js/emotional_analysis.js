@@ -1,3 +1,7 @@
+        // set eigenvector 9 and 11 to not be regularized. This is to better detect motion of the eyebrows
+        pModel.shapeModel.nonRegularizedVectors.push(9);
+        pModel.shapeModel.nonRegularizedVectors.push(11);
+
 /*********** setup of emotion detection *************/
 var ctrack = new clm.tracker({useWebGL : true});
 ctrack.init(pModel);
@@ -22,6 +26,9 @@ function trackingLoop() {
   // emotionValues is used to rank the detectable emotions against each other
   var emotionValues = [];
   if (er) {
+    if (currentQuestion == 6) {
+      updateData(er);
+    }
     for (var i = 0;i < er.length;i++) {
       emotionValues.push(er[i].value);
     }
@@ -40,6 +47,7 @@ function updateMaxEmotion(er, emotionValues) {
   // 4 = surprise
   // 5 = happy
   var max = emotionValues.indexOf(Math.max.apply(Math, emotionValues));
+
 
   // If q3 we are looking for strongest emotion during that period of question asked
   if (currentQuestion == 3) {

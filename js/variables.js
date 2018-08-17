@@ -89,7 +89,7 @@ function resetAlize() {
 	$( '#analytics' ).hide();
 	$( '#gif' ).hide();
 	$( '#reportCard' ).hide();
-	$( '#about' ).hide();
+	// $( '#about' ).hide();
 	$( '#facebox' ).show();
 	gifSrc();
 	activateStaticCanvas();

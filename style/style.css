@@ -8,8 +8,8 @@ body {
 .terminal {
 	overflow: hidden;
 	position: absolute;
-	top: 60%;
-	height: 40%;
+	top: 55%;
+	height: 45%;
 	width: 100%;
 }
 
@@ -102,6 +102,7 @@ body {
 
 .infoBox {
 	margin: 20px 0;
+	padding: 0 3%;
 	height: 100%
 }
 
@@ -134,8 +135,9 @@ body {
 #graphBox {
 /*	width: 80%;
 */	height: 20%;
-	padding: 0 20%;
-	margin: 0 0 7% 0;
+/*	padding: 0 20%;
+*/	margin: 5% 0 0 0;
+position: relative;
 }
 
 #happyCol, #sadCol, #surpriseCol, #angryCol {
@@ -180,7 +182,7 @@ body {
 	position: fixed;
 	height: 67vh;
 	width: 67vw;
-	border: 5px solid #33ff33;
+	border: 5px solid rgb(51,255,51,0.75);
 	margin: auto;
 	top: 0;
 	bottom: 0;
@@ -189,6 +191,29 @@ body {
 	text-align: center;
 	font-size: 57px;
 	color: #33ff33;
+}
+
+.pre {
+	white-space: pre;
+	font-size: 17px;
+	font-family: Courier, monospace;
+	line-height: 1.19;
+}
+
+
+
+/* D3 SHITS */
+
+#graphBox svg {
+	height: 100%;
+	width: 500px;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+}
+#graphBox rect {
+	background-color: #5daf2a;
 }
 
 
