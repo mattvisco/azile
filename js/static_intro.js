@@ -136,7 +136,7 @@ function animateStatic() {
 
 function faceDetectionProcessing() {
 	var currentTime = new Date();
-	if (currentTime - faceTimestamp >= 3000) {
+	if (currentTime - faceTimestamp >= 2000) {
 		if (faceRecognized >= totalFaceCount * 2/3) {
 			experienceBegin = true;
 			// For some reason this is adding in a momentary glitch of the overlay popping out

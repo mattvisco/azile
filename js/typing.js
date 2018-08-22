@@ -9,7 +9,7 @@ var exitExperienceTimeout;
 var textContainer = $('#text-container');
 var textWrapper = $('#text-wrapper');
 
-var TIMETILLRESET = 15000000; // Upon a period of requiring user input, this will determine how long we wait until the experience auto reset
+var TIMETILLRESET = 15000; // Upon a period of requiring user input, this will determine how long we wait until the experience auto reset
 
 // Initilize one time listener to listen for y/n type if we need that to move chat flow foward
 function initKeyListener () {
@@ -37,7 +37,7 @@ function initKeyListener () {
 					$( '#reportCard' ).show();
 					reportTimeout = setTimeout(function() {
 						resetAlize();
-					}, 30000);
+					}, 15000);
 				} else {
 					moveToNextStep();
 				}

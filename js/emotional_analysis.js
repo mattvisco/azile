@@ -26,7 +26,7 @@ function trackingLoop() {
   // emotionValues is used to rank the detectable emotions against each other
   var emotionValues = [];
   if (er) {
-    if (currentQuestion == 6) {
+    if (currentQuestion == 3) {
       updateData(er);
     }
     for (var i = 0;i < er.length;i++) {
