@@ -2,7 +2,6 @@ var introSentence = "\n >  Hello,\n my name is Ernest. I am learning how to read
 var smileSentence = "> Thank you for helping. Please can you smile for me."
 var friendSentence = "> Thank you for helping. Can you think of a time with a friend that was particularly memorable."
 var yOrN = "> [Type y/n to continue] ";
-var blockInterval;
 var ellipseIntervals = [];
 var exitExperienceTimeout;
 
@@ -92,6 +91,7 @@ function displaySentence(sentence) {
 // Generates the animating block that functions as a tip for the user to type
 function animateBlock() {
 	textContainer.append('<span class="block">&block;</span>');
+	clearInterval(blockInterval);
 	blockInterval = setInterval(function(){
 		$('.block').toggle();
 	},1000);

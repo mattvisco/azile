@@ -4,8 +4,8 @@ var overlayCC;
 
 var foundFace = false;
 var faceDistance = 0;
-var faceLow = 1.2;
-var faceHigh = 1.7;
+var faceLow = 1.1;
+var faceHigh = 1.5;
 var faceDetectionIsCurrent = false;
 var faceTimestamp;
 
@@ -36,6 +36,7 @@ var guessCorrect;
 var maxEmotionVal;
 
 var typingTimeout;
+var blockInterval;
 
 
 
@@ -64,6 +65,7 @@ function activateStaticCanvas() {
 // TODO: this reset should prolly have some window of time until face search restarts (setTimeout around some variable reset, gotta think more to decide)
 function resetAlize() {
 	clearTimeout(typingTimeout);
+	clearInterval(blockInterval);
 	foundFace = false;
 	faceDistance = 0;
 	faceDetectionIsCurrent = false;
@@ -125,7 +127,7 @@ function gifSrc() {
   console.log(img);
 
   // Giphy tag query
-  q = "cute";
+  q = "puppies";
 
   // Giphy API call
   var gif = $.get('https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&tag=' + q );
