@@ -38,6 +38,8 @@ var maxEmotionVal;
 var typingTimeout;
 var blockInterval;
 
+var dontLook;
+var dontLookTimeout;
 
 
 function initVariables() {
@@ -67,12 +69,16 @@ function resetAlize() {
 	clearTimeout(typingTimeout);
 	clearInterval(blockInterval);
 	foundFace = false;
-	faceDistance = 0;
+	faceDistance = faceLow;
 	faceDetectionIsCurrent = false;
 	experienceBegin = false;
 	currentQuestion = 0;
 	questionAnswered = true;
 	listeningForAnswer = false;
+	dontLook = true;
+	dontLookTimeout = setTimeout(function(){
+		dontLook = false;
+	}, 2000);
 	smileValue = 0.0;
 	emotions = {
 		anger: 0,

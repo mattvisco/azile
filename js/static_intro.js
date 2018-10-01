@@ -2,10 +2,10 @@ var camera, scene, renderer;
 var videoTexture,videoMaterial;
 var composer;
 var shaderTime = 0;
-var badTVParams, badTVPass;		
-var staticParams, staticPass;		
-var rgbParams, rgbPass;	
-var filmParams, filmPass;	
+var badTVParams, badTVPass;
+var staticParams, staticPass;
+var rgbParams, rgbPass;
+var filmParams, filmPass;
 var renderPass, copyPass;
 var pnoise, globalParams;
 
@@ -94,7 +94,7 @@ function updateParams() {
 function onToggleShaders(){
 
 	//Add Shader Passes to Composer
-	//order is important 
+	//order is important
 	composer = new THREE.EffectComposer( renderer);
 	composer.addPass( renderPass );
 
@@ -109,10 +109,10 @@ function onToggleShaders(){
 
 function animateStatic() {
 
-	if (!faceDetectionIsCurrent && foundFace) {
+	if (!faceDetectionIsCurrent) {
 		updateParams();
 	}
-	
+
 	shaderTime += 0.1;
 	badTVPass.uniforms[ 'time' ].value =  shaderTime;
 	filmPass.uniforms[ 'time' ].value =  shaderTime;
@@ -131,7 +131,7 @@ function animateStatic() {
 		$( '#overlay' ).fadeIn(1000); // show overlay to indicate to user face is being recognized
 		faceTimestamp = new Date();
 	}
-	
+
 }
 
 function faceDetectionProcessing() {

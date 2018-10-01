@@ -26,6 +26,8 @@ function tempFunctionUsedForPrintingOutDatBaseFace() {
 }
 
 function draw () {
+
+		console.log(faceDistance);
 	requestAnimFrame(draw);
 	trackingLoop();
 	if(experienceBegin) {

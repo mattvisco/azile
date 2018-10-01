@@ -68,10 +68,14 @@ function updateMaxEmotion(er, emotionValues) {
 }
 
 function calculateFaceDistance() {
-  var positions = ctrack.getCurrentPosition();
-  if (positions) {
-    foundFace = true;
-    faceDistance = getDistance(positions[0][0],positions[0][1],positions[14][0],positions[14][1]);
+  if(!dontLook){
+    var positions = ctrack.getCurrentPosition();
+    if (positions) {
+      foundFace = true;
+      faceDistance = getDistance(positions[0][0],positions[0][1],positions[14][0],positions[14][1]);
+    } else {
+      faceDistance = faceLow;
+    }
   }
 }
 
