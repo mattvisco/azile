@@ -3,7 +3,7 @@ function showAnalytics() {
   smileTimeout = setTimeout(function() {
     questionAnswered = true;
   $( '#analytics' ).hide();
-  }, 5000); // Wait 7s to determine emotion
+  }, 5000); // Wait 5s to determine emotion
 }
 
 function takeSnapshot() {

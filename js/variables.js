@@ -133,7 +133,7 @@ function gifSrc() {
   console.log(img);
 
   // Giphy tag query
-  q = "puppies";
+  q = "baby animal";
 
   // Giphy API call
   var gif = $.get('https://api.giphy.com/v1/gifs/random?api_key=d4eZba5M86PHdo7wJuURZ3yCB3WHEEvF&tag=' + q );

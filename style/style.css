@@ -136,7 +136,7 @@ body {
 #graphBox {
     height: 25%;
     position: absolute;
-    bottom: -5%;
+    bottom: 0;
     margin: auto;
     left: 0;
     right: 0;
@@ -174,8 +174,8 @@ body {
 
 #bug {
 	position: fixed;
-	right: 2vw;
-	bottom: 2vh;
+	right: 7vw;
+	bottom: 5vh;
 	font-size: 40px;
 	color: #33ff33;
 }
@@ -208,7 +208,7 @@ body {
 
 #graphBox svg {
 	height: 100%;
-	width: 500px;
+	width: 720px;
 	position: absolute;
 	margin: auto;
 	left: 0;

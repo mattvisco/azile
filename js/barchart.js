@@ -1,10 +1,10 @@
 /************ d3 code for barchart *****************/
 
 var margin = {top : 20, right : 20, bottom : 10, left : 20},
-	width = 500,
+	width = 720,
 	height = 100;
 
-var barWidth = 40;
+var barWidth = 60;
 
 var formatPercent = d3.format(".0%");
 
@@ -46,7 +46,7 @@ svg.selectAll("text.yAxis").
 	attr("y", height).
 	attr("dx", -barWidth/2).
 	attr("text-anchor", "middle").
-	attr("style", "font-size: 17").
+	attr("style", "font-size: 31").
 	text(function(datum) { return datum.emotion;}).
 	attr("transform", "translate(0, 18)").
 	attr("class", "yAxis").
