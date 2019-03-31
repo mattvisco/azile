@@ -163,7 +163,8 @@ function createVideo() {
 		video: true
 	}, function(stream) {
 		//on webcam enabled
-		video.src = window.URL.createObjectURL(stream);
+		// video.src = window.URL.createObjectURL(stream);
+		video.srcObject=stream;
 	}, function(error) {
 		prompt.innerHTML = 'Unable to capture WebCam. Please reload the page.';
 	});
